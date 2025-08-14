@@ -59,7 +59,7 @@ General-purpose helpers and extensions:
 
 ---
 
-###Task 3: Settings & DataStore 
+### Task 3: Settings & DataStore 
 - **Files:**
   - `SettingsRepository.kt`
   - `settings.proto` (schema)
