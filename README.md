@@ -45,31 +45,31 @@ General-purpose helpers and extensions:
 
 ### Task 1: Database Core 
 - **Files:**
-  - `Note.kt` (data class)
-  - `NoteDao.kt` (suspend functions)
-  - `NoteDatabase.kt` (Room setup + `exportSchema = true`)
+  - `Note.kt` 
+  - `NoteDao.kt` 
+  - `NoteDatabase.kt`
     
 ---
 
 ### Task 2: Encryption 
 - **Files:**
-  - `CryptoManager.kt` (Keystore wrapper)
-  - `NoteEncryptor.kt` (AES encrypt/decrypt)
-  - `EncryptedPrefs.kt` (password storage)
+  - `CryptoManager.kt` 
+  - `NoteEncryptor.kt` 
+  - `EncryptedPrefs.kt` 
 
 ---
 
 ### Task 3: Settings & DataStore 
 - **Files:**
   - `SettingsRepository.kt`
-  - `settings.proto` (schema)
+  - `settings.proto` 
   - `SettingsViewModel.kt`
 
 ---
 
 ### Task 4: Repository & ViewModels
 - **Files:**
-  - `NoteRepository.kt` (combines DB + encryption)
+  - `NoteRepository.kt` 
   - `NotesViewModel.kt`
   - `EditorViewModel.kt`
 
@@ -78,7 +78,7 @@ General-purpose helpers and extensions:
 ### Task 5: Export & Settings UI 
 - **Files:**
   - `SettingsScreen.kt`
-  - `FileExporter.kt` (SAF handling)
+  - `FileExporter.kt` 
   - `ExportNoteUseCase.kt`
 ---
 
