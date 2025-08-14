@@ -39,3 +39,51 @@ Contains Hilt modules such as `AppModule.kt` that provide dependencies across th
 General-purpose helpers and extensions:  
 - `FileExporter.kt`: File I/O and scoped storage handling.  
 - `Extensions.kt`: Kotlin extension functions used app-wide.
+
+---
+##Tasks division
+
+###Task 1: Database Core 
+- **Files:**
+  - `Note.kt` (data class)
+  - `NoteDao.kt` (suspend functions)
+  - `NoteDatabase.kt` (Room setup + `exportSchema = true`)
+    
+---
+
+###Task 2: Encryption 
+- **Files:**
+  - `CryptoManager.kt` (Keystore wrapper)
+  - `NoteEncryptor.kt` (AES encrypt/decrypt)
+  - `EncryptedPrefs.kt` (password storage)
+
+---
+
+###Task 3: Settings & DataStore 
+- **Files:**
+  - `SettingsRepository.kt`
+  - `settings.proto` (schema)
+  - `SettingsViewModel.kt`
+
+---
+
+### Task 4: Repository & ViewModels (Now Possible)**
+- **Files:**
+  - `NoteRepository.kt` (combines DB + encryption)
+  - `NotesViewModel.kt`
+  - `EditorViewModel.kt`
+
+---
+
+###Task 5: Export & Settings UI (Needs Core)**
+- **Files:**
+  - `SettingsScreen.kt`
+  - `FileExporter.kt` (SAF handling)
+  - `ExportNoteUseCase.kt`
+---
+
+### Task 6: Main UI (Most Dependent)**
+- **Files:**
+  - `NotesScreen.kt`
+  - `NoteCard.kt`
+  - `EditorScreen.kt`
