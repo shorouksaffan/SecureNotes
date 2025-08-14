@@ -67,7 +67,7 @@ General-purpose helpers and extensions:
 
 ---
 
-### Task 4: Repository & ViewModels (Now Possible)
+### Task 4: Repository & ViewModels
 - **Files:**
   - `NoteRepository.kt` (combines DB + encryption)
   - `NotesViewModel.kt`
@@ -75,14 +75,14 @@ General-purpose helpers and extensions:
 
 ---
 
-### Task 5: Export & Settings UI (Needs Core)**
+### Task 5: Export & Settings UI 
 - **Files:**
   - `SettingsScreen.kt`
   - `FileExporter.kt` (SAF handling)
   - `ExportNoteUseCase.kt`
 ---
 
-### Task 6: Main UI (Most Dependent)**
+### Task 6: Main UI 
 - **Files:**
   - `NotesScreen.kt`
   - `NoteCard.kt`
