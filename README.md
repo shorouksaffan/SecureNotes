@@ -44,7 +44,6 @@ General-purpose helpers and extensions:
 ## Tasks division
 
 ### Task 1: Database Core 
-- **Files:**
   - `Note.kt` 
   - `NoteDao.kt` 
   - `NoteDatabase.kt`
@@ -52,7 +51,6 @@ General-purpose helpers and extensions:
 ---
 
 ### Task 2: Encryption 
-- **Files:**
   - `CryptoManager.kt` 
   - `NoteEncryptor.kt` 
   - `EncryptedPrefs.kt` 
@@ -60,7 +58,6 @@ General-purpose helpers and extensions:
 ---
 
 ### Task 3: Settings & DataStore 
-- **Files:**
   - `SettingsRepository.kt`
   - `settings.proto` 
   - `SettingsViewModel.kt`
@@ -68,7 +65,6 @@ General-purpose helpers and extensions:
 ---
 
 ### Task 4: Repository & ViewModels
-- **Files:**
   - `NoteRepository.kt` 
   - `NotesViewModel.kt`
   - `EditorViewModel.kt`
@@ -76,14 +72,12 @@ General-purpose helpers and extensions:
 ---
 
 ### Task 5: Export & Settings UI 
-- **Files:**
   - `SettingsScreen.kt`
   - `FileExporter.kt` 
   - `ExportNoteUseCase.kt`
 ---
 
 ### Task 6: Main UI 
-- **Files:**
   - `NotesScreen.kt`
   - `NoteCard.kt`
   - `EditorScreen.kt`
