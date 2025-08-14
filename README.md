@@ -41,9 +41,9 @@ General-purpose helpers and extensions:
 - `Extensions.kt`: Kotlin extension functions used app-wide.
 
 ---
-##Tasks division
+## Tasks division
 
-###Task 1: Database Core 
+### Task 1: Database Core 
 - **Files:**
   - `Note.kt` (data class)
   - `NoteDao.kt` (suspend functions)
@@ -51,7 +51,7 @@ General-purpose helpers and extensions:
     
 ---
 
-###Task 2: Encryption 
+### Task 2: Encryption 
 - **Files:**
   - `CryptoManager.kt` (Keystore wrapper)
   - `NoteEncryptor.kt` (AES encrypt/decrypt)
@@ -67,7 +67,7 @@ General-purpose helpers and extensions:
 
 ---
 
-### Task 4: Repository & ViewModels (Now Possible)**
+### Task 4: Repository & ViewModels (Now Possible)
 - **Files:**
   - `NoteRepository.kt` (combines DB + encryption)
   - `NotesViewModel.kt`
@@ -75,7 +75,7 @@ General-purpose helpers and extensions:
 
 ---
 
-###Task 5: Export & Settings UI (Needs Core)**
+### Task 5: Export & Settings UI (Needs Core)**
 - **Files:**
   - `SettingsScreen.kt`
   - `FileExporter.kt` (SAF handling)
