@@ -43,7 +43,7 @@ General-purpose helpers and extensions:
 ---
 ## Tasks division
 
-### Task 1: Database Core 
+### Task 1: Database Core -> Ebrahim Gamal
   - `Note.kt` 
   - `NoteDao.kt` 
   - `NoteDatabase.kt`
