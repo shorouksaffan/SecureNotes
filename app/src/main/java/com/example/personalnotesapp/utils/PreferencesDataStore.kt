@@ -17,7 +17,7 @@ private val Context.dataStore by preferencesDataStore(
     }
 )
 
-class DataStore(context: Context) {
+class PreferencesDataStore(context: Context) {
     private val dataStore = context.dataStore
 
     suspend fun saveData(key: String, value: String) {
