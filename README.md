@@ -71,13 +71,14 @@ General-purpose helpers and extensions:
 
 ---
 
-### Task 5: Export & Settings UI 
+### Task 5: Export & Settings UI -> Mohamed Mostafa
   - `SettingsScreen.kt`
   - `FileExporter.kt` 
   - `ExportNoteUseCase.kt`
+
 ---
 
-### Task 6: Main UI 
+### Task 6: Main UI -> ismail ayman
   - `NotesScreen.kt`
   - `NoteCard.kt`
   - `EditorScreen.kt`
