@@ -2,11 +2,11 @@ package com.example.personalnotesapp.utils
 
 import android.content.Context
 import androidx.datastore.dataStore
-import com.example.personalnotesapp.data.local.preferences.UserSettings
+import com.example.personalnotesapp.data.model.UserSettings
 import com.example.personalnotesapp.data.model.UserSettingsSerializer
 import kotlinx.coroutines.flow.first
 
-private val Context.dataStore by dataStore("user_settings.pb", UserSettingsSerializer)
+private val Context.dataStore by dataStore("user_settings.json", UserSettingsSerializer)
 
 class ProtoDataStore(context: Context) {
     private val dataStore = context.dataStore
@@ -18,5 +18,4 @@ class ProtoDataStore(context: Context) {
     suspend fun getSettings(): UserSettings {
         return dataStore.data.first()
     }
-
 }
