@@ -11,6 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.personalnotesapp.data.model.Note
+import com.example.personalnotesapp.domain.usecase.ExportNoteUseCase
+import com.example.personalnotesapp.presentation.settings.SettingsScreen
 import com.example.personalnotesapp.ui.theme.PersonalNotesAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,6 +45,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     PersonalNotesAppTheme {
-        Greeting("Android")
+        SettingsScreen(Note(1,"Testing","Testing",1234), ExportNoteUseCase())
     }
 }
