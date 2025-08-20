@@ -1,5 +1,3 @@
-import com.google.protobuf.gradle.id
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +5,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.serialization)
     alias(libs.plugins.protobuf)
+    id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -21,6 +21,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true"
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -32,35 +40,66 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
+        viewBinding = true
         compose = true
     }
 }
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.32.0"
+        artifact = "com.google.protobuf:protoc:3.25.1" // use single latest
     }
     generateProtoTasks {
         all().forEach { task ->
             task.builtins {
-                id("kotlin") {
-                    option("lite")
-                }
+                create("java") { option("lite") }
+                create("kotlin") { option("lite") }
             }
         }
     }
 }
 
 dependencies {
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
+    // Hilt
+    implementation(libs.hilt.android)
+
+    // ✅ Proto DataStore (no duplicates)
+    implementation("androidx.datastore:datastore:1.1.0")
+    implementation("androidx.datastore:datastore-core:1.1.0")
+    implementation("com.google.protobuf:protobuf-javalite:3.25.1")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.1")
+
+    // ✅ Navigation (only keep these three)
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    // Material Design
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation ("com.google.dagger:hilt-android:2.44")
+
+
+    implementation ("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    ksp("com.google.dagger:hilt-compiler:2.44")
+    // AndroidX / Compose
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -69,28 +108,23 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.datastore.core)
-    implementation(libs.core.ktx)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.datastore)
+
+    // Serialization
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.protobuf.javalite)
-    implementation(libs.protobuf.kotlin.lite)
+
+    // Security
+    implementation(libs.androidx.security.crypto)
+
+    // Tests
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(kotlin("test"))
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debug
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(libs.androidx.security.crypto)
-    implementation(libs.androidx.datastore.preferences)
-    testImplementation(libs.junit.jupiter)
-    testImplementation(kotlin("test"))
 }
-

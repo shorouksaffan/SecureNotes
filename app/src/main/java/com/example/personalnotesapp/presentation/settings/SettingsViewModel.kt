@@ -1,31 +1,31 @@
 package com.example.personalnotesapp.presentation.settings
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.personalnotesapp.data.local.preferences.SettingsRepository
-import com.example.personalnotesapp.data.model.UserSettings
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.example.personalnotesapp.UserSettings
+import com.example.personalnotesapp.data.preferences.SettingsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel(private val settingsRepository: SettingsRepository) : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val repository: SettingsRepository
+) : ViewModel() {
 
-    private val _settings = MutableStateFlow(UserSettings())
-    val settings = _settings
+    val settings: LiveData<UserSettings> = repository.settingsFlow.asLiveData()
 
-    init {
-        loadSettings()
-    }
-
-    private fun loadSettings() {
+    fun updateSettings(isDarkMode: Boolean, fontSize: Int, autosave: Boolean) {
         viewModelScope.launch {
-            _settings.value = settingsRepository.getSettings()
-        }
-    }
+            val newSettings = UserSettings.newBuilder()
+                .setIsDarkMode(isDarkMode)
+                .setFontSize(fontSize)
+                .setAutosave(autosave)
+                .build()
 
-    fun saveSettings(settings: UserSettings) {
-        viewModelScope.launch {
-            settingsRepository.saveSettings(settings)
-            _settings.value = settings
+            repository.saveSettings(newSettings)
         }
     }
 }

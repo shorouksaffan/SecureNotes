@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/notesFragment">
 
+    <!-- Notes List Screen -->
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.example.personalnotesapp.presentation.notes.NotesFragment"
+        android:label="Notes"
+        tools:layout="@layout/fragment_notes">
+
+        <action
+            android:id="@+id/action_notesFragment_to_editorFragment"
+            app:destination="@id/editorFragment" />
+
+        <action
+            android:id="@+id/action_notesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+
+    <!-- Editor Screen -->
+    <fragment
+        android:id="@+id/editorFragment"
+        android:name="com.example.personalnotesapp.presentation.editor.EditorFragment"
+        android:label="Edit Note"
+        tools:layout="@layout/fragment_editor">
+
+        <!-- ✅ Define noteId argument -->
+        <argument
+            android:name="noteId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+
+    <!-- Settings Screen -->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.personalnotesapp.presentation.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
