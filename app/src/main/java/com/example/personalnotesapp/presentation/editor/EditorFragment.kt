@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.personalnotesapp.databinding.FragmentEditorBinding
+import com.example.personalnotesapp.presentation.settings.SettingsViewModel
+import com.example.personalnotesapp.utils.FontSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,6 +19,8 @@ class EditorFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: EditorViewModel by viewModels()
+    private val settingsViewModel: SettingsViewModel by viewModels()
+
 
     private var noteId: Int = 0
 
@@ -30,7 +34,9 @@ class EditorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        settingsViewModel.settings.observe(viewLifecycleOwner) { settings ->
+            FontSize.applyFontSizeToViews(binding.root, settings.fontSize)
+        }
         noteId = arguments?.getInt("noteId", 0) ?: 0
 
         if (noteId != 0) {

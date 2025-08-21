@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.personalnotesapp.R
 import com.example.personalnotesapp.databinding.FragmentNotesBinding
+import com.example.personalnotesapp.presentation.settings.SettingsViewModel
+import com.example.personalnotesapp.utils.FontSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +22,8 @@ class NotesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: NotesViewModel by viewModels()
+    private val settingsViewModel: SettingsViewModel by viewModels()
+
     private lateinit var adapter: NotesAdapter
 
     override fun onCreateView(
@@ -32,6 +36,10 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        settingsViewModel.settings.observe(viewLifecycleOwner) { settings ->
+            FontSize.applyFontSizeToViews(binding.root, settings.fontSize)
+            adapter.notifyDataSetChanged()
+        }
         binding.fabAddNote.setOnClickListener {
             findNavController().navigate(R.id.action_notesFragment_to_editorFragment)
         }
