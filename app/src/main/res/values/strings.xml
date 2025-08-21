@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">PersonalNotesApp</string>
+    <string name="app_name">Personal Notes App</string>
+
+    <string name="private_note_content">Private content - unlock to view</string>
+
+    <string name="title_hint">Title</string>
+    <string name="content_hint">Content</string>
+    <string name="save_button">Save</string>
+    <string name="delete_button">Delete</string>
+    <string name="private_checkbox">Private</string>
+    <string name="appearance_title">Appearance</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="font_size">Font Size</string>
+    <string name="auto_save">Auto-save</string>
+    <string name="export_all_notes">Export All Notes</string>
+    <string name="backup_to_cloud">Backup to Cloud</string>
+    <string name="login_required">Login Required</string>
+    <string name="login_message">Please log in to use cloud backup</string>
+    <string name="login">Login</string>
+    <string name="setting">settings</string>
+    <string name="cancel">Cancel</string>
 </resources>

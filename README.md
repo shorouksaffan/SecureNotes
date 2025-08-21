@@ -50,10 +50,8 @@ General-purpose helpers and extensions:
     
 ---
 
-### Task 2: Encryption 
-  - `CryptoManager.kt` 
-  - `NoteEncryptor.kt` 
-  - `EncryptedPrefs.kt` 
+### Task 2: Encryption & SecurePreferences -> Joseph Sameh
+  - `SecurePreferences.kt` 
 
 ---
 
