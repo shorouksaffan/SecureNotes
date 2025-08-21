@@ -2,30 +2,49 @@ package com.example.personalnotesapp.presentation.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.personalnotesapp.data.local.preferences.SettingsRepository
-import com.example.personalnotesapp.data.model.UserSettings
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.lifecycle.asLiveData
+import com.example.personalnotesapp.data.preferences.SettingsRepository
+import com.example.personalnotesapp.data.repository.NoteRepository
+import com.example.personalnotesapp.domain.model.UserSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel(private val settingsRepository: SettingsRepository) : ViewModel() {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val settingsRepository: SettingsRepository,
+    private val noteRepository: NoteRepository
+) : ViewModel() {
 
-    private val _settings = MutableStateFlow(UserSettings())
-    val settings = _settings
+    val settings = settingsRepository.settingsFlow.asLiveData()
 
-    init {
-        loadSettings()
-    }
-
-    private fun loadSettings() {
+    private fun saveSettings(newSettings: UserSettings) {
         viewModelScope.launch {
-            _settings.value = settingsRepository.getSettings()
+            settingsRepository.saveSettings(newSettings)
         }
     }
 
-    fun saveSettings(settings: UserSettings) {
+    fun updateSettings(
+        isDarkMode: Boolean,
+        fontSize: Int,
+        autosave: Boolean
+    ) {
+        val newSettings = UserSettings(
+            isDarkMode = isDarkMode,
+            fontSize = fontSize,
+            autoSave = autosave
+        )
+        saveSettings(newSettings)
+    }
+
+    fun getAllNotesForExport(callback: (String) -> Unit) {
         viewModelScope.launch {
-            settingsRepository.saveSettings(settings)
-            _settings.value = settings
+            noteRepository.getAllNotes().collect { notes ->
+                val exportText = notes.joinToString(separator = "\n\n") { note ->
+                    "Title: ${note.title}\nBody: ${note.content}\nDate: ${note.timestamp}"
+                }
+                callback(exportText)
+            }
         }
     }
 }

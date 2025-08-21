@@ -1,6 +1,7 @@
 [versions]
 agp = "8.11.1"
 datastorePreferences = "1.1.7"
+hiltAndroid = "2.57"
 kotlin = "2.2.10"
 junitJupiter = "5.13.4"
 coreKtx = "1.16.0"
@@ -13,14 +14,14 @@ activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 navigationFragmentKtx = "2.9.3"
 navigationUiKtx = "2.9.3"
-protobufJavalite = "4.32.0"
-protobufKotlinLite = "4.32.0"
+# FIXED: Use consistent Protocol Buffers versions
+protobufVersion = "3.25.1"  # Use this consistent version
 room = "2.7.2"
 ksp = "2.2.0-2.0.2"
 datastoreCore = "1.1.7"
 securityCrypto = "1.1.0-alpha06"
 coreKtxVersion = "1.7.0"
-protobuf = "0.9.5"
+protobufPlugin = "0.9.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +31,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -46,11 +48,18 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavalite" }
+# FIXED: Use consistent Protocol Buffers dependencies
+protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufVersion" }
+protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobufVersion" }
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "datastoreCore" }
-protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobufKotlinLite" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
 core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtxVersion" }
+
+# REMOVED: These duplicate entries were causing conflicts
+# protobuf-javalite-v3251 = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavaliteVersion" }
+# protobuf-kotlin-lite-v3234 = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobufKotlinLiteVersion" }
+# protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobufJavalite" }
+# protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobufKotlinLite" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -58,4 +67,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }

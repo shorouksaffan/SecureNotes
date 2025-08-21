@@ -2,7 +2,7 @@ package com.example.personalnotesapp.domain.usecase
 
 import android.content.Context
 import android.net.Uri
-import com.example.personalnotesapp.data.model.Note
+import com.example.personalnotesapp.domain.model.Note
 import com.example.personalnotesapp.utils.FileExporter
 
 class ExportNoteUseCase {
@@ -12,7 +12,7 @@ class ExportNoteUseCase {
             context = context,
             uri = uri,
             title = note.title,
-            body = note.body,
+            body = note.content,
             timestamp = note.timestamp
         )
     }

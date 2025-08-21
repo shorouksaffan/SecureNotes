@@ -1,37 +1,41 @@
 package com.example.personalnotesapp.presentation.editor
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.personalnotesapp.data.model.Note
+import com.example.personalnotesapp.domain.model.Note
 import com.example.personalnotesapp.data.repository.NoteRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditorViewModel(private val repository: NoteRepository) : ViewModel() {
+@HiltViewModel
+class EditorViewModel @Inject constructor(
+    private val repository: NoteRepository
+) : ViewModel() {
 
-    private val _note = MutableStateFlow<Note?>(null)
-    val note: StateFlow<Note?> = _note
+    private val _note = MutableLiveData<Note?>()
+    val note: LiveData<Note?> get() = _note
 
-    fun loadNoteById(id: Int) {
+    fun loadNote(id: Int) {
         viewModelScope.launch {
             _note.value = repository.getNoteById(id)
         }
     }
 
-    fun saveNote(note: Note) {
+    fun saveNote(id: Int, title: String, content: String) {
         viewModelScope.launch {
-            if (note.id == 0) {
-                repository.insertNote(note)
+            if (id == 0) {
+                repository.insertNote(Note(title = title, content = content))
             } else {
-                repository.updateNote(note)
+                repository.updateNote(Note(id = id, title = title, content = content))
             }
         }
     }
-
-    fun deleteNote(note: Note) {
+    fun deleteNote(id: Int) {
         viewModelScope.launch {
-            repository.deleteNote(note)
+            repository.deleteNoteById(id)
         }
     }
 }
