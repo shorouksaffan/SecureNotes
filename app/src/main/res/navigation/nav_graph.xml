@@ -5,7 +5,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/notesFragment">
 
-    <!-- Notes List Screen -->
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.example.personalnotesapp.presentation.notes.NotesFragment"
@@ -21,21 +20,18 @@
             app:destination="@id/settingsFragment" />
     </fragment>
 
-    <!-- Editor Screen -->
     <fragment
         android:id="@+id/editorFragment"
         android:name="com.example.personalnotesapp.presentation.editor.EditorFragment"
         android:label="Edit Note"
         tools:layout="@layout/fragment_editor">
 
-        <!-- ✅ Define noteId argument -->
         <argument
             android:name="noteId"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
 
-    <!-- Settings Screen -->
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.personalnotesapp.presentation.settings.SettingsFragment"

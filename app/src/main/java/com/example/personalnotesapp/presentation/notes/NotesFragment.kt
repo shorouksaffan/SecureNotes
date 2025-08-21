@@ -32,7 +32,14 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.fabAddNote.setOnClickListener {
+            findNavController().navigate(R.id.action_notesFragment_to_editorFragment)
+        }
 
+
+        binding.fabSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_notesFragment_to_settingsFragment)
+        }
         adapter = NotesAdapter { note ->
             val bundle = Bundle().apply {
                 putInt("noteId", note.id)

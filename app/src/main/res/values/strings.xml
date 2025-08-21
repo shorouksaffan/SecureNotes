@@ -17,5 +17,6 @@
     <string name="login_required">Login Required</string>
     <string name="login_message">Please log in to use cloud backup</string>
     <string name="login">Login</string>
+    <string name="setting">settings</string>
     <string name="cancel">Cancel</string>
 </resources>
