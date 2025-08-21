@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.personalnotesapp.databinding.ItemNoteBinding
 import com.example.personalnotesapp.domain.model.Note
+import com.example.personalnotesapp.utils.FontSize
 
 class NotesAdapter(
     private val onNoteClick: (Note) -> Unit
@@ -17,6 +18,13 @@ class NotesAdapter(
         override fun areContentsTheSame(oldItem: Note, newItem: Note) = oldItem == newItem
     }
 
+    private var fontSizeBaseSp: Int = 16
+
+    fun setFontBase(fontSp: Int) {
+        fontSizeBaseSp = fontSp
+        notifyDataSetChanged()
+    }
+
     inner class NoteViewHolder(private val binding: ItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -24,6 +32,7 @@ class NotesAdapter(
             binding.noteTitle.text = note.title
             binding.noteContent.text = note.content
             binding.root.setOnClickListener { onNoteClick(note) }
+            FontSize.applyFontSizeToViews(binding.root, fontSizeBaseSp)
         }
     }
 

@@ -1,15 +1,16 @@
 package com.example.personalnotesapp.domain.model
 
-
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
 @Suppress("BlockingMethodInNonBlockingContext")
+@OptIn(InternalSerializationApi::class)
 object UserSettingsSerializer : Serializer<UserSettings> {
     override val defaultValue: UserSettings
         get() = UserSettings()

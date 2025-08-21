@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 private val Context.userSettingsDataStore by dataStore(
-    fileName = "user_settings.pb", 
+    fileName = "user_settings.json",
     serializer = UserSettingsSerializer
 )
 

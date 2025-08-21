@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.personalnotesapp.databinding.FragmentSettingsBinding
+import com.example.personalnotesapp.utils.FontSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +28,14 @@ class SettingsFragment : Fragment() {
 
     private val viewModel: SettingsViewModel by viewModels()
 
+    private val darkModeListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
+        viewModel.updateSettings(isDarkMode = isChecked)
+    }
+
+    private val autoSaveListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
+        viewModel.updateSettings(autosave = isChecked)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,46 +48,27 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
+            binding.darkModeSwitch.setOnCheckedChangeListener(null)
+            binding.autoSaveSwitch.setOnCheckedChangeListener(null)
             binding.darkModeSwitch.isChecked = settings.isDarkMode
             binding.autoSaveSwitch.isChecked = settings.autoSave
             binding.fontSizeSeekBar.progress = settings.fontSize
-
-            // ✅ Apply theme when restoring settings
             AppCompatDelegate.setDefaultNightMode(
                 if (settings.isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
+            binding.darkModeSwitch.setOnCheckedChangeListener(darkModeListener)
+            binding.autoSaveSwitch.setOnCheckedChangeListener(autoSaveListener)
+            FontSize.applyFontSizeToViews(binding.root, settings.fontSize)
         }
+        binding.darkModeSwitch.setOnCheckedChangeListener(darkModeListener)
+        binding.autoSaveSwitch.setOnCheckedChangeListener(autoSaveListener)
 
-        binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.updateSettings(
-                isDarkMode = isChecked,
-                fontSize = binding.fontSizeSeekBar.progress,
-                autosave = binding.autoSaveSwitch.isChecked
-            )
-
-            AppCompatDelegate.setDefaultNightMode(
-                if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
-                else AppCompatDelegate.MODE_NIGHT_NO
-            )
-        }
-
-        binding.autoSaveSwitch.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.updateSettings(
-                isDarkMode = binding.darkModeSwitch.isChecked,
-                fontSize = binding.fontSizeSeekBar.progress,
-                autosave = isChecked
-            )
-        }
-
-        binding.fontSizeSeekBar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
+        binding.fontSizeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                viewModel.updateSettings(
-                    isDarkMode = binding.darkModeSwitch.isChecked,
-                    fontSize = progress,
-                    autosave = binding.autoSaveSwitch.isChecked
-                )
+                if (fromUser) {
+                    viewModel.updateSettings(fontSize = progress)
+                }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -114,6 +105,8 @@ class SettingsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.darkModeSwitch.setOnCheckedChangeListener(null)
+        binding.autoSaveSwitch.setOnCheckedChangeListener(null)
         _binding = null
     }
 }
