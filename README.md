@@ -5,7 +5,7 @@ Note-taking app that allows users to save, view, delete and lock their personal 
 
 ## Branch Strategy
 
-- `master` – Final stable code
+- `main` – Final stable code
 - `dev` – Shared development branch
 - `feature/*` – Each team member’s task
 
@@ -42,7 +42,12 @@ General-purpose helpers and extensions:
 
 ---
 ## Tasks division
+---
+## Project Coordination
 
+- Repository setup, README, branch strategy (`dev` / `feature/*` / `master`), and task distribution were handled by **Shorouk Saffan**.
+
+---
 ### Task 1: Database Core -> Ebrahim Gamal
   - `Note.kt` 
   - `NoteDao.kt` 
@@ -80,3 +85,14 @@ General-purpose helpers and extensions:
   - `NotesScreen.kt`
   - `NoteCard.kt`
   - `EditorScreen.kt`
+    
+### task 7: layouts and navigation -> shorouk saffan
+
+  - `activity_main.xml`
+  - `fragment_editor.xml`
+  - `fragment_notes.xml`
+  - `fragment_settings.xml`
+  - `item_note.xml`
+  - `nav_graph.xml`
+    
+
