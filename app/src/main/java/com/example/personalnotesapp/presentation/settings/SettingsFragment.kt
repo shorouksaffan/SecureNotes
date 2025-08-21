@@ -31,7 +31,7 @@ class SettingsFragment : Fragment() {
 
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
             binding.darkModeSwitch.isChecked = settings.isDarkMode
-            binding.autoSaveSwitch.isChecked = settings.autosave
+            binding.autoSaveSwitch.isChecked = settings.autoSave
             binding.fontSizeSeekBar.progress = settings.fontSize
         }
 

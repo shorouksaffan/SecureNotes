@@ -1,11 +1,10 @@
 package com.example.personalnotesapp.presentation.settings
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.personalnotesapp.UserSettings
+import androidx.lifecycle.asLiveData
 import com.example.personalnotesapp.data.preferences.SettingsRepository
+import com.example.personalnotesapp.domain.model.UserSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,17 +14,25 @@ class SettingsViewModel @Inject constructor(
     private val repository: SettingsRepository
 ) : ViewModel() {
 
-    val settings: LiveData<UserSettings> = repository.settingsFlow.asLiveData()
+    // ✅ Expose as LiveData so Fragment can use `observe`
+    val settings = repository.settingsFlow.asLiveData()
 
-    fun updateSettings(isDarkMode: Boolean, fontSize: Int, autosave: Boolean) {
+    private fun saveSettings(newSettings: UserSettings) {
         viewModelScope.launch {
-            val newSettings = UserSettings.newBuilder()
-                .setIsDarkMode(isDarkMode)
-                .setFontSize(fontSize)
-                .setAutosave(autosave)
-                .build()
-
             repository.saveSettings(newSettings)
         }
+    }
+
+    fun updateSettings(
+        isDarkMode: Boolean,
+        fontSize: Int,
+        autosave: Boolean
+    ) {
+        val newSettings = UserSettings(
+            isDarkMode = isDarkMode,
+            fontSize = fontSize,
+            autoSave = autosave
+        )
+        saveSettings(newSettings)
     }
 }

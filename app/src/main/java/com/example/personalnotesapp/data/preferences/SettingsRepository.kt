@@ -1,11 +1,12 @@
 package com.example.personalnotesapp.data.preferences
 
 import androidx.datastore.dataStore
-import com.example.personalnotesapp.UserSettings
+import com.example.personalnotesapp.domain.model.UserSettings
 import com.example.personalnotesapp.utils.ProtoDataStore
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SettingsRepository(
+class SettingsRepository  @Inject constructor(
     private val protoDataStore: ProtoDataStore
 ) {
     val settingsFlow: Flow<UserSettings> = protoDataStore.data
